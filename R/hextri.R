@@ -1,7 +1,7 @@
 
-hexen<-function(center_x,center_y,radii,cols,border=FALSE){
+hexen<-function(center_x,center_y,radii,cols,border=FALSE,asp=1){
 	x<-as.vector(t(outer(radii,tri_x)+center_x))
-	y<-as.vector(t(outer(radii,tri_y)+center_y))
+	y<-as.vector(t(outer(radii*asp,tri_y)+center_y))
 	polygon(x,y,col=as.vector(t(cols)),border=if(border) NA else as.vector(t(cols)))
 	
 	invisible(list(x=x,y=y,col=as.vector(t(cols))))
@@ -46,12 +46,13 @@ hexclass<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
 	centers<-hcell2xy(h)
+    asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)
 	allocations<-apply(tab,1,sainte_lague,6)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	radii<-full_radius*sqrt(h@count/max(h@count))
 	col_matrix<-matrix(colours[t(allocations)],nrow=ncol(allocations))
-	hexen(centers$x,centers$y,radii, col_matrix,border=border)
+	hexen(centers$x,centers$y,radii, col_matrix,border=border,asp=asp)
 }
 
 
@@ -59,6 +60,7 @@ hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
 	centers<-hcell2xy(h)
+    asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)
 	allocations<-apply(tab,1,sainte_lague,6)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
@@ -67,7 +69,7 @@ hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE){
 	rgb<-col2rgb(all_colours)
 	alpha_colours<-rgb(rgb[1,],rgb[2,],rgb[3,],255*alpha,max=255)
 	col_matrix<-matrix(alpha_colours,nrow=ncol(allocations))
-	hexen(centers$x,centers$y,rep(full_radius,length(centers$x)), col_matrix,border=border)
+	hexen(centers$x,centers$y,rep(full_radius,length(centers$x)), col_matrix,border=border,asp=asp)
 }
 
 
@@ -75,12 +77,13 @@ hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
 	centers<-hcell2xy(h)
+    asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)
 	allocations<-diffuse(h,tab)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	radii<-full_radius*sqrt(h@count/max(h@count))
 	col_matrix<-matrix(colours[t(allocations)],nrow=ncol(allocations))
-	hexen(centers$x,centers$y,radii, col_matrix,border=border)
+	hexen(centers$x,centers$y,radii, col_matrix,border=border,asp=asp)
 }
 
 
@@ -88,6 +91,7 @@ hexclass1_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
 	centers<-hcell2xy(h)
+    asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)
 	allocations<-diffuse(h,tab)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
@@ -96,6 +100,6 @@ hexclass1_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
 	rgb<-col2rgb(all_colours)
 	alpha_colours<-rgb(rgb[1,],rgb[2,],rgb[3,],255*alpha,max=255)
 	col_matrix<-matrix(alpha_colours,nrow=ncol(allocations))
-	hexen(centers$x,centers$y,rep(full_radius,length(centers$x)), col_matrix,border=border)
+	hexen(centers$x,centers$y,rep(full_radius,length(centers$x)), col_matrix,border=border,asp=asp)
 }
 
