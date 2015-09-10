@@ -20,12 +20,12 @@ sainte_lague= function(votes, nseats){
 } 
 
 
-hextri<-function(x,y,class,colours,nbins=10,border=FALSE, 
+hextri<-function(x,y,class,colours,nbins=10,border=TRUE, 
         style=c("alpha","size")){
   style<-match.arg(style)
   switch(style,
-    size=hexclass(x,y,class,colours,nbins=10,border=FALSE),
-    alpha=hexclass1(x,y,class,colours,nbins=10,border=FALSE)
+    size=hexclass(x,y,class,colours,nbins=nbins,border=border),
+    alpha=hexclass1(x,y,class,colours,nbins=nbins,border=border)
   )
 }
 
@@ -34,7 +34,7 @@ hexclass<-function(x,y,class,colours,nbins=10,border=FALSE){
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
 	centers<-hcell2xy(h)
 	tab<-table(h@cID,class)
-	allocations<-apply(tab,1,sainte_lague1,6)
+	allocations<-apply(tab,1,sainte_lague,6)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	radii<-full_radius*sqrt(h@count/max(h@count))
 	col_matrix<-matrix(colours[t(allocations)],nrow=ncol(allocations))
@@ -47,7 +47,7 @@ hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE){
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
 	centers<-hcell2xy(h)
 	tab<-table(h@cID,class)
-	allocations<-apply(tab,1,sainte_lague1,6)
+	allocations<-apply(tab,1,sainte_lague,6)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	alpha<-h@count/max(h@count)
 	all_colours<-colours[t(allocations)]
@@ -63,7 +63,7 @@ hexclass1_rand<-function(x,y,class,colours,nbins=10,border=FALSE){
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
 	centers<-hcell2xy(h)
 	tab<-table(h@cID,class)
-	allocations<-apply(tab,1,sainte_lague1,6)
+	allocations<-apply(tab,1,sainte_lague,6)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	alpha<-h@count/max(h@count)
 	all_colours<-colours[t(allocations)]

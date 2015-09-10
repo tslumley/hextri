@@ -9,7 +9,7 @@ Displays a hexagonally-binned scatterplot with coloured subtriangles to
 indicate number of observations in each class. 
 }
 \usage{
-hextri(x, y, class, colours, nbins = 10, border = FALSE,
+hextri(x, y, class, colours, nbins = 10, border = TRUE,
    style=c("alpha","size"))
 }
 %- maybe also 'usage' for other objects documented here.
