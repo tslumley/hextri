@@ -3,7 +3,7 @@ Type: Package
 Title: Hexbin plots with triangles
 Version: 0.1
 Date: 2015-09-10
-Author: Thomas Lumley
+Author: Thomas Lumley (Jie Fu Yu made a prototype)
 Maintainer: <t.lumley@auckland.ac.nz>
 Description: Display hexagonally binned scatterplots for multi-class data, using coloured triangles to show class proportions.
 License: MIT
