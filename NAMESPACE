@@ -1,1 +1,3 @@
-exportPattern("^[[:alpha:]]+")
+import(hexbin,graphics)
+export(sainte_lague, hextri)
+

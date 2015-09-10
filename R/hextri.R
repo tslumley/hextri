@@ -20,6 +20,15 @@ sainte_lague= function(votes, nseats){
 } 
 
 
+hextri<-function(x,y,class,colours,nbins=10,border=FALSE, 
+        style=c("alpha","size")){
+  style<-match.arg(style)
+  switch(style,
+    size=hexclass(x,y,class,colours,nbins=10,border=FALSE),
+    alpha=hexclass1(x,y,class,colours,nbins=10,border=FALSE)
+  )
+}
+
 hexclass<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
