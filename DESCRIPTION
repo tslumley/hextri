@@ -7,4 +7,4 @@ Author: Thomas Lumley (Jie Fu Yu made a prototype)
 Maintainer: <t.lumley@auckland.ac.nz>
 Description: Display hexagonally binned scatterplots for multi-class data, using coloured triangles to show class proportions.
 License: MIT
-Imports: hexbin, graphics
+Imports: hexbin, graphics, FNN

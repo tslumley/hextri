@@ -9,7 +9,7 @@ Displays a hexagonally-binned scatterplot with coloured subtriangles to
 indicate number of observations in each class. 
 }
 \usage{
-hextri(x, y, class, colours, nbins = 10, border = TRUE,
+hextri(x, y, class, colours, nbins = 10, border = TRUE,diffuse=FALSE,
    style=c("alpha","size"))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -29,6 +29,9 @@ Number of bins in the x-axis direction
   \item{border}{
 Include a narrow transparent border around each triangle and hexagon
 }
+\item{diffuse}{
+	Pass on rounding error to nearest not-yet-drawn hexes so that rare classes get represented
+}
 \item{style}{Represent data by hexagon size or by alpha-blending}
 }
 \details{
@@ -43,9 +46,6 @@ A list with components \code{x}, \code{y}, and \code{col} suitable as input to \
 }
 \author{
 %%  ~~who you are~~
-}
-\note{
-Need to add error diffusion
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -65,6 +65,13 @@ rval<-hextri(xx,yy,cc,1:4,nbins=20,border=TRUE,style="alpha")
 ## using the return value
 plot(y~x,data=rval,type="n")
 with(rval, polygon(x,y,col=col,border=NA))
+
+## diffusion
+xx<-runif(10000)
+yy<-runif(10000)
+cc<-rep(1:3,c(4750,4750,500))
+hextri(xx,yy,cc,2:4,border=TRUE,diffuse=FALSE,style="size")
+hextri(xx,yy,cc,2:4,border=TRUE,diffuse=TRUE,style="size")
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
