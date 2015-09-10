@@ -36,7 +36,7 @@ Uses the Sainte-Lague method to apportion counts to triangles, ensuring the coun
 round to exactly six triangles per hexagon.
 }
 \value{
-Used for its side-effect
+A list with components \code{x}, \code{y}, and \code{col} suitable as input to \code{polygon()}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -60,7 +60,11 @@ cc<-cut(xx*yy,c(-Inf,-.4,0,.4,Inf))
 
 plot(xx,yy,col=(1:4)[cc])
 hextri(xx,yy,cc,1:4,nbins=20,border=TRUE,style="size")
-hextri(xx,yy,cc,1:4,nbins=20,border=TRUE,style="alpha")
+rval<-hextri(xx,yy,cc,1:4,nbins=20,border=TRUE,style="alpha")
+
+## using the return value
+plot(y~x,data=rval,type="n")
+with(rval, polygon(x,y,col=col,border=NA))
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

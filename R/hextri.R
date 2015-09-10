@@ -3,6 +3,8 @@ hexen<-function(center_x,center_y,radii,cols,border=FALSE){
 	x<-as.vector(t(outer(radii,tri_x)+center_x))
 	y<-as.vector(t(outer(radii,tri_y)+center_y))
 	polygon(x,y,col=as.vector(t(cols)),border=if(border) NA else as.vector(t(cols)))
+	
+	invisible(list(x=x,y=y,col=as.vector(t(cols))))
 }
 
 
