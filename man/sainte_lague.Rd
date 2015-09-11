@@ -19,14 +19,12 @@ Vector of 'votes' for each party, non-negative numeric values
 Single integer giving the number of seats to be allocated (6, here)
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 Numeric vector of length \code{nseats} giving the class membership for each seat, with an \code{error} attribute giving the rounding errors for each party.
 }
 \references{
-\url{https://en.wikipedia.org/wiki/Sainte-Lagu%C3%AB_method}
+\url{https://en.wikipedia.org/wiki/Sainte-Lagu\%C3\%AB_method}
 }
 
 \seealso{
