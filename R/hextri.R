@@ -44,7 +44,8 @@ hextri<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,
 
 hexclass<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
-	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
+	pin<-par("pin")
+	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)
@@ -58,7 +59,8 @@ hexclass<-function(x,y,class,colours,nbins=10,border=FALSE){
 
 hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
-	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
+	pin<-par("pin")
+	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)
@@ -75,7 +77,8 @@ hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE){
 
 hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
-	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
+	pin<-par("pin")
+	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)
@@ -89,7 +92,8 @@ hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
 
 hexclass1_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
 	plot(x,y,type="n")
-	h<-hexbin(x,y,IDs=TRUE,xbins=nbins)
+	pin<-par("pin")
+	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
 	tab<-table(h@cID,class)

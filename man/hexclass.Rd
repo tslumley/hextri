@@ -37,6 +37,8 @@ Include a narrow transparent border around each triangle and hexagon
 \details{
 Uses the Sainte-Lague method to apportion counts to triangles, ensuring the counts
 round to exactly six triangles per hexagon.
+
+The binning/aspect ratio are adjusted to give regular hexagons on the figure region set by \code{plot(x,y)}. If you reshape the window you will need to redraw the plot. 
 }
 \value{
 A list with components \code{x}, \code{y}, and \code{col} suitable as input to \code{polygon()}
