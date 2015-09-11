@@ -6,11 +6,11 @@ Hexagonal binning with classes
 }
 \description{
 Displays a hexagonally-binned scatterplot with coloured subtriangles to
-indicate number of observations in each class. 
+indicate number of observations in each class. With a single class, gives a base-graphics version of the ordinary hexbin plot.
 }
 \usage{
 hextri(x, y, class, colours, nbins = 10, border = TRUE,diffuse=FALSE,
-   style=c("alpha","size"))
+   style=c("alpha","size"),...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +33,7 @@ Include a narrow transparent border around each triangle and hexagon
 	Pass on rounding error to nearest not-yet-drawn hexes so that rare classes get represented
 }
 \item{style}{Represent data by hexagon size or by alpha-blending}
+\item{\dots}{Passed to the \code{plot} call that sets up the plot region}
 }
 \details{
 Uses the Sainte-Lague method to apportion counts to triangles, ensuring the counts

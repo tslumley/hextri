@@ -27,23 +27,23 @@ sainte_lague= function(votes, nseats){
 
 
 hextri<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,
-        style=c("alpha","size")){
+        style=c("alpha","size"),...){
   style<-match.arg(style)
   if(!diffuse){
   switch(style,
-    size=hexclass(x,y,class,colours,nbins=nbins,border=border),
-    alpha=hexclass1(x,y,class,colours,nbins=nbins,border=border)
+    size=hexclass(x,y,class,colours,nbins=nbins,border=border,...),
+    alpha=hexclass1(x,y,class,colours,nbins=nbins,border=border,...)
   )
   } else {
   	switch(style,
-    size=hexclass_diffuse(x,y,class,colours,nbins=nbins,border=border),
-    alpha=hexclass1_diffuse(x,y,class,colours,nbins=nbins,border=border)
+    size=hexclass_diffuse(x,y,class,colours,nbins=nbins,border=border,...),
+    alpha=hexclass1_diffuse(x,y,class,colours,nbins=nbins,border=border,...)
   )
   }
 }
 
-hexclass<-function(x,y,class,colours,nbins=10,border=FALSE){
-	plot(x,y,type="n")
+hexclass<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
@@ -57,8 +57,8 @@ hexclass<-function(x,y,class,colours,nbins=10,border=FALSE){
 }
 
 
-hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE){
-	plot(x,y,type="n")
+hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
@@ -75,8 +75,8 @@ hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE){
 }
 
 
-hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
-	plot(x,y,type="n")
+hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
@@ -90,8 +90,8 @@ hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
 }
 
 
-hexclass1_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE){
-	plot(x,y,type="n")
+hexclass1_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
