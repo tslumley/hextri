@@ -27,28 +27,31 @@ sainte_lague= function(votes, nseats){
 
 
 hextri<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,
-        style=c("alpha","size"),...){
+        style=c("alpha","size"),weights=NULL,...){
   style<-match.arg(style)
   if(!diffuse){
   switch(style,
-    size=hexclass(x,y,class,colours,nbins=nbins,border=border,...),
-    alpha=hexclass1(x,y,class,colours,nbins=nbins,border=border,...)
+    size=hexclass(x,y,class,colours,nbins=nbins,border=border,weights=weights,...),
+    alpha=hexclass1(x,y,class,colours,nbins=nbins,border=border,weights=weights,...)
   )
   } else {
   	switch(style,
-    size=hexclass_diffuse(x,y,class,colours,nbins=nbins,border=border,...),
-    alpha=hexclass1_diffuse(x,y,class,colours,nbins=nbins,border=border,...)
+    size=hexclass_diffuse(x,y,class,colours,nbins=nbins,border=border,weights=weights,...),
+    alpha=hexclass1_diffuse(x,y,class,colours,nbins=nbins,border=border,weights=weights,...)
   )
   }
 }
 
-hexclass<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+hexclass<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,...){
 	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
-	tab<-table(h@cID,class)
+    if (is.null(weights))
+		tab<-table(h@cID,class)
+	else
+		tab<-xtabs(weights~h@cID+class)
 	allocations<-apply(tab,1,sainte_lague,6)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	radii<-full_radius*sqrt(h@count/max(h@count))
@@ -57,13 +60,16 @@ hexclass<-function(x,y,class,colours,nbins=10,border=FALSE,...){
 }
 
 
-hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,...){
 	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
-	tab<-table(h@cID,class)
+    if (is.null(weights))
+		tab<-table(h@cID,class)
+	else
+		tab<-xtabs(weights~h@cID+class)
 	allocations<-apply(tab,1,sainte_lague,6)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	alpha<-h@count/max(h@count)
@@ -75,13 +81,16 @@ hexclass1<-function(x,y,class,colours,nbins=10,border=FALSE,...){
 }
 
 
-hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,...){
 	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
-	tab<-table(h@cID,class)
+    if (is.null(weights))
+		tab<-table(h@cID,class)
+	else
+		tab<-xtabs(weights~h@cID+class)
 	allocations<-diffuse(h,tab)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	radii<-full_radius*sqrt(h@count/max(h@count))
@@ -90,13 +99,16 @@ hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,...){
 }
 
 
-hexclass1_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,...){
+hexclass1_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,...){
 	plot(x,y,type="n",...)
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
     asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
-	tab<-table(h@cID,class)
+    if (is.null(weights))
+		tab<-table(h@cID,class)
+	else
+		tab<-xtabs(weights~h@cID+class)
 	allocations<-diffuse(h,tab)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
 	alpha<-h@count/max(h@count)

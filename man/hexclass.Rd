@@ -10,7 +10,7 @@ indicate number of observations in each class. With a single class, gives a base
 }
 \usage{
 hextri(x, y, class, colours, nbins = 10, border = TRUE,diffuse=FALSE,
-   style=c("alpha","size"),...)
+   style=c("alpha","size"),weights=NULL,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +33,7 @@ Include a narrow transparent border around each triangle and hexagon
 	Pass on rounding error to nearest not-yet-drawn hexes so that rare classes get represented
 }
 \item{style}{Represent data by hexagon size or by alpha-blending}
+\item{weights}{If not \code{NULL}, sampling weights. The hexbin plot will be of the estimated population}
 \item{\dots}{Passed to the \code{plot} call that sets up the plot region}
 }
 \details{
@@ -75,6 +76,8 @@ yy<-runif(10000)
 cc<-rep(1:3,c(4750,4750,500))
 hextri(xx,yy,cc,2:4,border=TRUE,diffuse=FALSE,style="size")
 hextri(xx,yy,cc,2:4,border=TRUE,diffuse=TRUE,style="size")
+
+hextri(xx,yy,cc,2:4,border=TRUE,diffuse=TRUE,style="size",weights=cc)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
