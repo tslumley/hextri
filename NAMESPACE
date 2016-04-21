@@ -1,3 +1,3 @@
-import(graphics, hexbin,FNN)
-export(sainte_lague, hextri)
+import(graphics, hexbin,FNN,grid)
+export(sainte_lague, hextri,panel.hextri)
 

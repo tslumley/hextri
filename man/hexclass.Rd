@@ -33,7 +33,9 @@ Include a narrow transparent border around each triangle and hexagon
 	Pass on rounding error to nearest not-yet-drawn hexes so that rare classes get represented
 }
 \item{style}{Represent data by hexagon size or by alpha-blending}
-\item{weights}{If not \code{NULL}, sampling weights or frequency weights. The hexbin plot will be based on the sum of weights in the hex}
+\item{weights}{If not \code{NULL}, sampling weights or frequency
+  weights. The hexbin plot will be based on the sum of weights in the
+hex}
 \item{\dots}{Passed to the \code{plot} call that sets up the plot region}
 }
 \details{

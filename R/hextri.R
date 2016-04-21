@@ -3,7 +3,6 @@ hexen<-function(center_x,center_y,radii,cols,border=FALSE,asp=1){
 	x<-as.vector(t(outer(radii,tri_x)+center_x))
 	y<-as.vector(t(outer(radii*asp,tri_y)+center_y))
 	polygon(x,y,col=as.vector(t(cols)),border=if(border) NA else as.vector(t(cols)))
-	
 	invisible(list(x=x,y=y,col=as.vector(t(cols))))
 }
 
@@ -24,6 +23,8 @@ sainte_lague= function(votes, nseats){
    attr(rval,"error")<-error
    rval
 } 
+
+
 
 
 hextri<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,
@@ -47,8 +48,8 @@ hexclass<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,...){
 	pin<-par("pin")
 	h<-hexbin(x,y,IDs=TRUE,xbins=nbins,shape=pin[2]/pin[1])
 	centers<-hcell2xy(h)
-    asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
-    if (is.null(weights))
+        asp<-(diff(h@ybnds)/diff(h@xbnds))/h@shape
+        if (is.null(weights))
 		tab<-table(h@cID,class)
 	else
 		tab<-xtabs(weights~h@cID+class)
