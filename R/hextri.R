@@ -24,10 +24,26 @@ sainte_lague= function(votes, nseats){
    rval
 } 
 
+hextri<-function(x, ...){ UseMethod("hextri")}
 
+hextri.formula<-function(x, data=parent.frame(), class,colours,nbins=10,border=TRUE, diffuse=FALSE,
+        style=c("alpha","size"),weights=NULL,...){
+    if ((length(x)!=3) || length(x[[3]])>2)
+        stop("formula must have one LHS and one RHS term")
+    m<-match.call(expand.dots=FALSE)
+    m$formula<-m$x
+    m$x<-m$colours<-m$nbins<-m$border<-m$diffuse<-m$style<-m$dots<-NULL
+    m[[1]]<-as.name("model.frame")
+    mf<-eval.parent(m)
+    y<-mf[[1]]
+    x<-mf[[2]]
+    class<-mf[["(class)"]]
+    wt<-mf[["(weights)"]]
+    hextri(x,y,class=class,weights=wt, colours=colours, nbins=nbins,
+           border=border, diffuse=diffuse, style=style, ...)
+}
 
-
-hextri<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,
+hextri.default<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,
         style=c("alpha","size"),weights=NULL,...){
   style<-match.arg(style)
   if(!diffuse){

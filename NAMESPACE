@@ -1,3 +1,7 @@
 import(graphics,hexbin,FNN,grid)
 export(sainte_lague,hextri,panel.hextri)
 
+S3method(hextri, default)
+S3method(hextri, formula)
+
+
