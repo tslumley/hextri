@@ -79,9 +79,9 @@ hextri(xx,yy,cc,1:4,nbins=20,border=TRUE,style="size")
 
 ##formula method
 data(NHANES, package="hexbin")
-hextri(Weight~Age, class=Smoke, col=c("red","orange","green","grey"),
+hextri(Weight~Age, class=Smoke, col=c("red","orange","green","grey40"),
    data=NHANES, style="size",nbins=20, main="Smoking")
-legend("topright",fill=c("red","orange","green","grey"),
+legend("topright",fill=c("red","orange","green","grey40"),
    legend=c("Current","Past","Never","unknown"),bty="n")
 
 
