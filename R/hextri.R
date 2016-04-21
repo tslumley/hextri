@@ -27,20 +27,24 @@ sainte_lague= function(votes, nseats){
 hextri<-function(x, ...){ UseMethod("hextri")}
 
 hextri.formula<-function(x, data=parent.frame(), class,colours,nbins=10,border=TRUE, diffuse=FALSE,
-        style=c("alpha","size"),weights=NULL,...){
+        style=c("alpha","size"),weights=NULL,xlab=NULL, ylab=NULL,...){
     if ((length(x)!=3) || length(x[[3]])>2)
         stop("formula must have one LHS and one RHS term")
     m<-match.call(expand.dots=FALSE)
     m$formula<-m$x
-    m$x<-m$colours<-m$nbins<-m$border<-m$diffuse<-m$style<-m$dots<-NULL
+    m$x<-m$colours<-m$nbins<-m$border<-m$diffuse<-m$style<-m$"..."<-NULL
     m[[1]]<-as.name("model.frame")
     mf<-eval.parent(m)
-    y<-mf[[1]]
-    x<-mf[[2]]
+    .y<-mf[[1]]
+    .x<-mf[[2]]
     class<-mf[["(class)"]]
     wt<-mf[["(weights)"]]
-    hextri(x,y,class=class,weights=wt, colours=colours, nbins=nbins,
-           border=border, diffuse=diffuse, style=style, ...)
+    labels<-sapply(attr(terms(x),"variables"), deparse)[-1]
+    if (is.null(ylab)) ylab<-labels[1]
+    if (is.null(xlab)) xlab<-labels[2]
+    hextri(.x,.y,class=class,weights=wt, colours=colours, nbins=nbins,
+           border=border, diffuse=diffuse, style=style,
+           xlab=xlab,ylab=ylab,...)
 }
 
 hextri.default<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,

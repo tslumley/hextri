@@ -1,7 +1,7 @@
 Package: hextri
 Type: Package
 Title: Hexbin plots with triangles
-Version: 0.4
+Version: 0.5
 Date: 2015-09-10
 Author: Thomas Lumley (Jie Fu Yu made a prototype)
 Maintainer: <t.lumley@auckland.ac.nz>
