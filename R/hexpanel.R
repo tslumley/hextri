@@ -4,7 +4,7 @@ g.hexen<-function(center_x,center_y,radii,cols,border=FALSE,asp=1){
 	y<-as.vector(t(outer(radii*asp,tri_y)+center_y))
         id<-rep(1:(6*length(center_x)),each=4)
         gp<-grid::gpar(fill=as.vector(t(cols)), col=if(border) NA else as.vector(t(cols)))
-	grid.polygon(x,y,id=id, gp=gp,default.units="native")
+	grid.polygon(x,y,id=id, gp=gp, default.units="native")
 }
 
 
@@ -19,7 +19,7 @@ panel.hextri<-function(x ,y, groups, subscripts, colours, nbins=10, border=TRUE,
     } else {
         switch(style,
                size=hexpanel_diffuse(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,shape=shape,...),
-               alpha=hexclass_alpha_diffuse(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,shape=shape,...)
+               alpha=hexpanel_alpha_diffuse(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,shape=shape,...)
                )
     }
 }

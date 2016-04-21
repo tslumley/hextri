@@ -47,11 +47,9 @@ The binning/aspect ratio are adjusted to give regular hexagons on the figure reg
 \value{
 A list with components \code{x}, \code{y}, and \code{col} suitable as input to \code{polygon()}
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
-%%  ~~who you are~~
+Thomas Lumley
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

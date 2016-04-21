@@ -28,7 +28,7 @@ Numeric vector of length \code{nseats} giving the class membership for each seat
 }
 
 \seealso{
-\code{\link{hexclass}}
+\code{\link{hextri}}
 }
 \examples{
 sainte_lague(c(100,200,300,50),6)
