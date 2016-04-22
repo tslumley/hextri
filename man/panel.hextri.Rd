@@ -9,7 +9,9 @@ Displays a hexagonally-binned scatterplot with coloured subtriangles to indicate
 
 }
 \usage{
-panel.hextri(x, y, groups, subscripts, colours, nbins = 10, border = TRUE, diffuse = FALSE, style = c("alpha", "size"), weights = NULL, sorted=!diffuse,shape = 1, ...)
+panel.hextri(x, y, groups, subscripts, colours, nbins = 10, border = TRUE,
+   diffuse = FALSE, style = c("alpha", "size"), weights = NULL,
+   sorted=!diffuse, shape = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
