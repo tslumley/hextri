@@ -13,9 +13,10 @@ indicate number of observations in each class. With a single class, gives a base
 \usage{
 hextri(x,...)
 \method{hextri}{default}(x, y, class, colours, nbins = 10, border =
-TRUE, diffuse=FALSE, style=c("alpha","size"), weights=NULL, ...)
+TRUE, diffuse=FALSE, style=c("alpha","size"), weights=NULL,
+sorted=!diffuse, ...)
 \method{hextri}{formula}(x, data=parent.frame(), class,colours,nbins=10,
-border=TRUE, diffuse=FALSE, style=c("alpha","size"),weights=NULL,
+border=TRUE, diffuse=FALSE, style=c("alpha","size"),weights=NULL, sorted=!diffuse,
  xlab=NULL, ylab=NULL,...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -47,6 +48,9 @@ Include a narrow transparent border around each triangle and hexagon
 \item{weights}{If not \code{NULL}, sampling weights or frequency
   weights. The hexbin plot will be based on the sum of weights in the
   hex}
+\item{sorted}{Should the triangles be sorted into a consistent order
+  within each hex? More attractive but can cause 3-d artifacts and may
+  be less accurate.}
 \item{xlab,ylab}{Specify to override the formula-based defaults}
 \item{\dots}{Passed to the \code{plot} call that sets up the plot region}
 }
@@ -95,7 +99,7 @@ xx<-runif(10000)
 yy<-runif(10000)
 cc<-rep(1:3,c(4750,4750,500))
 hextri(xx,yy,cc,2:4,border=TRUE,diffuse=FALSE,style="size")
-hextri(xx,yy,cc,2:4,border=TRUE,diffuse=TRUE,style="size")
+hextri(xx,yy,cc,2:4,border=TRUE,diffuse=TRUE,sorted=TRUE, style="size")
 
 hextri(xx,yy,cc,2:4,border=TRUE,diffuse=TRUE,style="size",weights=cc)
 

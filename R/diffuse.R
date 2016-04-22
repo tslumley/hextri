@@ -1,4 +1,4 @@
-diffuse<-function(hexbin, tab){
+diffuse<-function(hexbin, tab, sorted=FALSE){
 	n<-nrow(tab)
 			
 	nclasses<-ncol(tab)	
@@ -8,6 +8,7 @@ diffuse<-function(hexbin, tab){
 	for(i in 1:n){
 		alloc<-sainte_lague(tab[i,],6)
 		allocations[i,]<-sample(alloc)
+                if (sorted) allocations[i,]<-sort(allocations[i,])
 		nnearby<-min(6,(n-i))
 		slop<-oldslop<-slop+attr(alloc,"error")
 		if (nnearby>0){
