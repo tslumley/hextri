@@ -9,7 +9,7 @@ Displays a hexagonally-binned scatterplot with coloured subtriangles to indicate
 
 }
 \usage{
-panel.hextri(x, y, groups, subscripts, colours, nbins = 10, border = TRUE, diffuse = FALSE, style = c("alpha", "size"), weights = NULL, shape = 1, ...)
+panel.hextri(x, y, groups, subscripts, colours, nbins = 10, border = TRUE, diffuse = FALSE, style = c("alpha", "size"), weights = NULL, sorted=!diffuse,shape = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,7 +38,8 @@ If \code{TRUE} pass on rounding error to nearest not-yet-drawn hexes so that rar
 \item{style}{Represent data by hexagon size or by alpha-blending}
 \item{weights}{If not \code{NULL}, sampling weights or frequency
   weights. The hexbin plot will be based on the sum of weights in the
-hex}
+  hex}
+\item{sorted}{Sort the triangles into a consistent order within each hex?}
   \item{shape}{
 Aspect ratio for each hex. 
 }

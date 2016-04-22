@@ -9,23 +9,23 @@ g.hexen<-function(center_x,center_y,radii,cols,border=FALSE,asp=1){
 
 
 panel.hextri<-function(x ,y, groups, subscripts, colours, nbins=10, border=TRUE, diffuse=FALSE,
-        style=c("alpha","size"), weights=NULL, shape=1,...){
+        style=c("alpha","size"), weights=NULL, sorted=!diffuse, shape=1,...){
     style<-match.arg(style)
     if(!diffuse){
         switch(style,
-               size=hexpanel(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,shape=shape,...),
-               alpha=hexpanel_alpha(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,shape=shape,...)
+               size=hexpanel(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,shape=shape,...),
+               alpha=hexpanel_alpha(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,shape=shape,...)
                )
     } else {
         switch(style,
-               size=hexpanel_diffuse(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,shape=shape,...),
-               alpha=hexpanel_alpha_diffuse(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,shape=shape,...)
+               size=hexpanel_diffuse(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,shape=shape,...),
+               alpha=hexpanel_alpha_diffuse(x,y,groups, subscripts,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,shape=shape,...)
                )
     }
 }
 
 
-hexpanel<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,shape=1,...)
+hexpanel<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,sorted,shape=1,...)
 {
     if (is.null(shape)){
         pin<-par("pin")
@@ -40,6 +40,7 @@ hexpanel<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=
     else
         tab<-xtabs(weights~h@cID+class)
     allocations<-apply(tab,1,sainte_lague,6)
+    if(!sorted) allocations<-apply(allocations,1,sample)
     full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
     radii<-full_radius*sqrt(h@count/max(h@count))
     col_matrix<-matrix(colours[t(allocations)],nrow=ncol(allocations))
@@ -47,7 +48,7 @@ hexpanel<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=
 }
 
 
-hexpanel_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,shape=1,...)
+hexpanel_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,sorted,shape=1,...)
 {
     if (is.null(shape)){
         pin<-par("pin")
@@ -61,7 +62,7 @@ hexpanel_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,
         tab<-table(h@cID,class)
     else
         tab<-xtabs(weights~h@cID+class)
-    allocations<-diffuse(h,tab)
+    allocations<-diffuse(h,tab,sorted)
     full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
     radii<-full_radius*sqrt(h@count/max(h@count))
     col_matrix<-matrix(colours[t(allocations)],nrow=ncol(allocations))
@@ -70,7 +71,7 @@ hexpanel_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,
 
 
 
-hexpanel_alpha_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,shape=1,...)
+hexpanel_alpha_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,sorted,shape=1,...)
 {
     if (is.null(shape)){
         pin<-par("pin")
@@ -84,7 +85,7 @@ hexpanel_alpha_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=
         tab<-table(h@cID,class)
     else
         tab<-xtabs(weights~h@cID+class)
-    allocations<-diffuse(h,tab)
+    allocations<-diffuse(h,tab,sorted)
     full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
     alpha<-rowSums(tab)/max(rowSums(tab))
     all_colours<-colours[t(allocations)]
@@ -96,7 +97,7 @@ hexpanel_alpha_diffuse<-function(x,y,groups, subscripts,colours,nbins=10,border=
 
 
 
-hexpanel_alpha<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,shape=1,...)
+hexpanel_alpha<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,weights=NULL,sorted,shape=1,...)
 {
     if (is.null(shape)){
         pin<-par("pin")
@@ -111,6 +112,7 @@ hexpanel_alpha<-function(x,y,groups, subscripts,colours,nbins=10,border=FALSE,we
     else
         tab<-xtabs(weights~h@cID+class)
     allocations<-apply(tab,1,sainte_lague,6)
+    if(!sorted) allocations<-apply(allocations,1,sample)
     full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
     alpha<-rowSums(tab)/max(rowSums(tab))
     all_colours<-colours[t(allocations)]
