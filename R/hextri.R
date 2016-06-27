@@ -76,7 +76,7 @@ hexclass<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,sorted,.
 	allocations<-apply(tab,1,sainte_lague,6)
         if(!sorted) allocations<-apply(allocations,1,sample)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
-	radii<-full_radius*sqrt(h@count/max(h@count))
+	radii<-full_radius*sqrt(rowSums(tab)/max(rowSums(tab))) #sqrt(h@count/max(h@count))
 	col_matrix<-matrix(colours[t(allocations)],nrow=ncol(allocations))
 	hexen(centers$x,centers$y,radii, col_matrix,border=border,asp=asp)
 }
@@ -116,7 +116,7 @@ hexclass_diffuse<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,
 		tab<-xtabs(weights~h@cID+class)
 	allocations<-diffuse(h,tab,sorted)
 	full_radius<-diff(h@xbnds)/h@xbins/sqrt(3)
-	radii<-full_radius*sqrt(h@count/max(h@count))
+	radii<-full_radius*sqrt(rowSums(tab)/max(rowSums(tab))) #sqrt(h@count/max(h@count))
 	col_matrix<-matrix(colours[t(allocations)],nrow=ncol(allocations))
 	hexen(centers$x,centers$y,radii, col_matrix,border=border,asp=asp)
 }
