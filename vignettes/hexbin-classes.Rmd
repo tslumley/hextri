@@ -4,8 +4,8 @@ author: "Thomas Lumley"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Multi-class hexagonal binning}
+  %\VignetteEngine{rmarkdown::render}
   \usepackage[utf8]{inputenc}
 ---
 
