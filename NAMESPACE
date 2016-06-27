@@ -1,4 +1,6 @@
 import(graphics,hexbin,FNN,grid)
+importFrom(grDevices,col2rgb)
+importFrom("stats", "terms", "xtabs")
 export(sainte_lague,hextri,panel.hextri)
 
 S3method(hextri, default)

@@ -1,11 +1,11 @@
 Package: hextri
 Type: Package
 Title: Hexbin Plots with Triangles
-Version: 0.5
+Version: 0.6
 Author: Thomas Lumley (Jie Fu Yu made a prototype)
 Maintainer: Thomas Lumley <t.lumley@auckland.ac.nz>
 Description: Display hexagonally binned scatterplots for multi-class data, using coloured triangles to show class proportions.
 License: MIT + file LICENSE
-Imports: hexbin, graphics, FNN, grid
+Imports: hexbin, graphics, FNN, grid, grDevices
 Suggests: lattice, knitr, datasets
 VignetteBuilder: knitr
