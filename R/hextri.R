@@ -49,18 +49,28 @@ hextri.formula<-function(x, data=parent.frame(), class,colours,nbins=10,border=T
 
 hextri.default<-function(x,y,class,colours,nbins=10,border=TRUE, diffuse=FALSE,
         style=c("alpha","size"),weights=NULL,sorted=!diffuse,...){
-  style<-match.arg(style)
-  if(!diffuse){
-  switch(style,
-    size=hexclass(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...),
-    alpha=hexclass1(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...)
-  )
-  } else {
+    if (is.null(weights)){
+        temp<-na.omit(data.frame(x,y,class))
+    } else {
+        temp<-na.omit(data.frame(x,y,class,weights))
+        weights<-temp$weights
+    }        
+    x<-temp$x
+    y<-temp$y
+    class<-temp$class
+    
+    style<-match.arg(style)
+    if(!diffuse){
+        switch(style,
+               size=hexclass(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...),
+               alpha=hexclass1(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...)
+               )
+    } else {
   	switch(style,
-    size=hexclass_diffuse(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...),
-    alpha=hexclass1_diffuse(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...)
-  )
-  }
+               size=hexclass_diffuse(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...),
+               alpha=hexclass1_diffuse(x,y,class,colours,nbins=nbins,border=border,weights=weights,sorted=sorted,...)
+               )
+    }
 }
 
 hexclass<-function(x,y,class,colours,nbins=10,border=FALSE,weights=NULL,sorted,...){
