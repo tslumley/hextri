@@ -14,10 +14,10 @@ indicate number of observations in each class. With a single class, gives a base
 hextri(x,...)
 \method{hextri}{default}(x, y, class, colours, nbins = 10, border =
 TRUE, diffuse=FALSE, style=c("alpha","size"), weights=NULL,
-sorted=!diffuse, ...)
+sorted=!diffuse,minfrac=0, ...)
 \method{hextri}{formula}(x, data=parent.frame(), class,colours,nbins=10,
 border=TRUE, diffuse=FALSE, style=c("alpha","size"),weights=NULL, sorted=!diffuse,
- xlab=NULL, ylab=NULL,...)
+ xlab=NULL, ylab=NULL,minfrac=0,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -52,6 +52,8 @@ Include a narrow transparent border around each triangle and hexagon
   within each hex? More attractive but can cause 3-d artifacts and may
   be less accurate.}
 \item{xlab,ylab}{Specify to override the formula-based defaults}
+\item{minfrac}{Cells with radius smaller than this fraction of a whole
+  cell will be drawn as points. Most useful with \code{style="size"}}
 \item{\dots}{Passed to the \code{plot} call that sets up the plot region}
 }
 \details{
@@ -85,6 +87,14 @@ hextri(xx,yy,cc,1:4,nbins=20,border=TRUE,style="size")
 data(NHANES, package="hexbin")
 hextri(Weight~Age, class=Smoke, col=c("red","orange","green","grey40"),
    data=NHANES, style="size",nbins=20, main="Smoking")
+legend("topright",fill=c("red","orange","green","grey40"),
+   legend=c("Current","Past","Never","unknown"),bty="n")
+
+## minimum sizes
+
+data(NHANES, package="hexbin")
+hextri(Weight~Age, class=Smoke, col=c("red","orange","green","grey40"),
+   data=NHANES, style="size",nbins=20, main="Smoking",minfrac=.2)
 legend("topright",fill=c("red","orange","green","grey40"),
    legend=c("Current","Past","Never","unknown"),bty="n")
 
