@@ -5,8 +5,8 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Multi-class hexagonal binning}
-  %\VignetteEngine{rmarkdown::render}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 # Multi-class hexbins #
@@ -18,7 +18,7 @@ An important limitation of hexagonally binned scatterplots is that they do not a
 ### An example: air pollution ###
 
 Here's an example using the data on 1973 New York summer air pollution in the `airquality` data set: a graph of temperature by solar radiation with ozone concentration (smog) as the class variable. At the moment, the package doesn't handle missing data well, so we run `na.omit()` first.
-```{r}
+```{r, fig.width=10,fig.height=8, out.width="90%"}
 library(hextri)
 data(airquality)
 airquality$o3group<-with(airquality, cut(Ozone, c(0,18,60,Inf)))
@@ -33,7 +33,7 @@ The graph shows the non-monotone relationship of temperature and solar radiation
 
 
 Tthe `lattice` package allows for the plot to be conditioned on wind speed, the other important variable
-```{r, fig.height=4, fig.width=12}
+```{r, fig.width=10,fig.height=8, out.width="90%"}
 library(lattice)
 xyplot(Temp~Solar.R|equal.count(Wind,4), groups=o3group, panel=panel.hextri,
   data=na.omit(airquality), colours=c("royalblue","grey60","goldenrod"),
@@ -48,7 +48,7 @@ High wind days tend not to be as hot, but also tend to have less ozone than woul
 The `hexbin` package has a moderately large dataset from the National Health And Nutrition Examination Surveys (NHANES), looking at various measures of iron availability.
 
 A fairly dramatic one is haemoglobin by age, tabulated by sex (orange for women, purple for men).  The first plot uses alpha-blending to depict total hex size. The increase in size at age 65 is due to oversampling of older people. 
-```{r}
+```{r, fig.width=10,fig.height=8 , out.width="90%"}
 data(NHANES, package="hexbin")
 with(na.omit(NHANES[,-8]), hextri(Age,Hemoglobin, class=Sex,colour=c("orange","purple"),
     nbins=20,xlab="Age",ylab="Serum haemoglobin"))
@@ -56,13 +56,13 @@ with(na.omit(NHANES[,-8]), hextri(Age,Hemoglobin, class=Sex,colour=c("orange","p
 
 Parts of this  graph show one of the problems with a regular assignment of triangles within the hex: three-dimensional artifacts because a cube seen corner-on is a hexagon.  This next plot has random ordering of triangles within each hex.  It also has diffusion of rounding error: when the class proportions within a hex do not divide equally into sixths, the rounding error is divided up among nearby hexes that have not yet been rendered.  Error diffusion is especially important with small classes, as otherwise a class with less than 1/12 of the total sample would never be seen. 
 
-```{r}
+```{r , fig.width=10,fig.height=8, out.width="90%"}
 with(na.omit(NHANES[,-8]), hextri(Age,Hemoglobin, class=Sex,colour=c("orange","purple"),
     nbins=20,xlab="Age",ylab="Serum haemoglobin", diffuse=TRUE))
 ```
 
 Here is the same graph with hex totals depicted by size, with and without error diffusion
-```{r}
+```{r, fig.width=10,fig.height=8 , out.width="90%"}
 with(na.omit(NHANES[,-8]), hextri(Age,Hemoglobin, class=Sex,colour=c("orange","purple"),
     nbins=20,xlab="Age",ylab="Serum haemoglobin",style="size"))
 
@@ -71,7 +71,7 @@ with(na.omit(NHANES[,-8]), hextri(Age,Hemoglobin, class=Sex,colour=c("orange","p
 ```
 
 Finally, the same plot conditioned on dietary iron intake:
-```{r}
+```{r, fig.width=10,fig.height=8, out.width="90%"}
 xyplot(Hemoglobin~Age|equal.count(Diet.Iron, 6),groups=Sex, data=na.omit(NHANES[,-8]), 
   colour=c("orange","purple"),panel=panel.hextri, 
   strip=strip.custom(var.name="Dietary iron"),style="size",diffuse=TRUE)
@@ -80,7 +80,7 @@ xyplot(Hemoglobin~Age|equal.count(Diet.Iron, 6),groups=Sex, data=na.omit(NHANES[
 ### Colour choice ###
 
 The previous examples had only a small number of classes. With more classes it may be useful to set the colours to highlight one class at at time
-```{r}
+```{r, fig.width=10,fig.height=8, out.width="90%"}
 xx<-rnorm(1000)
 yy<-rnorm(1000)
 cc<-cut(xx*yy,c(-Inf,-.4,0,.4,Inf))
